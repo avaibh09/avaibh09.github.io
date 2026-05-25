@@ -363,8 +363,20 @@
     .hero-content { position: relative; z-index: 1; }
 
     /* ── Mobile ──────────────────────────────── */
-    @media (max-width: 580px) {
-      .f1-name { font-size: clamp(3.8rem, 18vw, 6rem); }
+    @media (max-width: 640px) {
+      :root {
+        --x:  clamp(1.2rem, 5.5vw, 2rem);
+        --yt: clamp(3rem, 7vh, 4.5rem);
+        --yb: clamp(2.5rem, 6vh, 4rem);
+      }
+      .f1-name  { font-size: clamp(3.4rem, 16vw, 5.5rem); }
+      .f2-text  { font-size: clamp(1.8rem, 7vw, 2.8rem); line-height: 1.12; }
+      .f3-text  { font-size: clamp(.85rem, 3.5vw, 1rem); line-height: 1.95; }
+      .f4-text  { font-size: clamp(1.1rem, 4.5vw, 1.6rem); }
+      .f5-link  { font-size: clamp(1.3rem, 6.5vw, 2.2rem); }
+      #f3       { min-height: 55svh; }
+      #f4       { min-height: 58svh; }
+      .n-toggle { bottom: 1rem; right: 1.2rem; }
     }
 
   </style>
@@ -380,7 +392,7 @@
 <!-- Nav -->
 <nav id="nav">
   <a href="#f1" class="n-logo">VA</a>
-  <a href="#f5" class="n-link">Hello</a>
+  <a href="#f5" class="n-link">Say Hello</a>
 </nav>
 <button class="n-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">○</button>
 
@@ -504,6 +516,7 @@
       H = canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', () => setTimeout(resize, 120));
     resize();
 
     function gauss() {
