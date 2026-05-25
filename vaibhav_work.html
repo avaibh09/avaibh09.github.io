@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaibhav Agarwal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Prevent FOUC before React mounts */
+    body { background: #fafaf9; }
+    ::selection { background: #0f0f0f; color: #fafaf9; }
+  </style>
+</head>
+
+<body class="bg-stone-50 text-neutral-900 font-sans antialiased">
+  <div id="root"></div>
+
+  <!-- React + ReactDOM (UMD) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel standalone — transpiles JSX in the browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    /* ─────────────────────────────────────────────
+       DATA
+    ───────────────────────────────────────────── */
+    const FOCUS = [
+      {
+        n: '01',
+        title: 'Fintech Product Building',
+        body:  'Designing and shipping financial products that reduce friction and create compounding value - for users and institutions alike.',
+      },
+      {
+        n: '02',
+        title: 'AI & Automation',
+        body:  'Exploring how AI-native workflows compress time-to-insight and eliminate low-leverage work across financial operations.',
+      },
+      {
+        n: '03',
+        title: 'Data-Driven Decisions',
+        body:  'Treating data as a first-class product - from KPI architecture to dashboards that actually change behaviour.',
+      },
+    ];
+
+    const EXPERIMENTS = [
+      {
+        tag:   'Concept',
+        title: 'AI-Enabled B2B Service Models',
+        body:  'Prototyping service models where AI handles complexity and humans handle the relationship. Mapping where this creates defensible value in financial services.',
+      },
+      {
+        tag:   'Research',
+        title: 'Fintech Product Research',
+        body:  'Mapping gaps in financial infrastructure and consumer behaviour to identify where the next generation of products will emerge and what makes them stick.',
+      },
+      {
+        tag:   'Exploration',
+        title: 'AI-Native Enterprise Solutions',
+        body:  'Exploring what becomes possible when AI is embedded into operational workflows - from intelligent automation to AI-assisted decision-making in financial services.',
+      },
+      {
+        tag:   'Vision',
+        title: 'The Pier',
+        body:  'A long-term company-building framework. More below.',
+      },
+    ];
+
+    const PRINCIPLES = [
+      { l: 'P', name: 'Purpose',    desc: 'Every decision traces back to why. Clarity of purpose reduces noise and accelerates judgement.' },
+      { l: 'I', name: 'Impact',     desc: 'Output is measured by change created, not effort expended. Results over activity.' },
+      { l: 'E', name: 'Execution',  desc: 'Ideas are abundant. Consistent, disciplined delivery is the real differentiator.' },
+      { l: 'E', name: 'Excellence', desc: 'The standard is never minimum viable - it is the best possible given real constraints.' },
+      { l: 'R', name: 'Resilience', desc: 'Long games require absorbing pressure without losing direction. Composure is a skill.' },
+    ];
+
+    /* ─────────────────────────────────────────────
+       COMPONENTS
+    ───────────────────────────────────────────── */
+
+    /* NAV */
+    const Nav = () => {
+      const [scrolled, setScrolled] = useState(false);
+      useEffect(() => {
+        const h = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', h, { passive: true });
+        return () => window.removeEventListener('scroll', h);
+      }, []);
+
+      return (
+        <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-stone-50/96 backdrop-blur-md border-b border-neutral-200'
+            : 'bg-transparent'
+        }`}>
+          <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="#" className="text-xs font-medium tracking-[0.2em] uppercase">VA</a>
+            <ul className="flex gap-8">
+              {[['Work', '#work'], ['About', '#about'], ['Contact', '#contact']].map(([label, href]) => (
+                <li key={label}>
+                  <a href={href}
+                     className="text-xs tracking-[0.15em] uppercase text-neutral-400 hover:text-neutral-900 transition-colors duration-200">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      );
+    };
+
+    /* HERO */
+    const Hero = () => (
+      <section className="min-h-screen flex flex-col justify-center pt-28 pb-20 px-6">
+        <div className="max-w-5xl mx-auto w-full">
+
+          <p className="text-xs tracking-[0.32em] uppercase text-neutral-400 mb-10">
+            Finance · Technology · Data
+          </p>
+
+          <h1 className="font-display text-[2.6rem] sm:text-5xl md:text-6xl lg:text-[4.2rem]
+                         font-medium leading-[1.07] tracking-[-0.02em] max-w-4xl mb-10 text-neutral-950">
+            Building at the intersection of finance, technology, and data.
+          </h1>
+
+          <p className="text-neutral-500 text-base sm:text-[1.05rem] font-light leading-relaxed max-w-[500px] mb-12">
+            I'm Vaibhav Agarwal - a product and data-driven operator in financial services, focused on fintech products, scalable systems, and AI-enabled business building.
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            <a href="#work"
+               className="inline-flex items-center gap-2 bg-neutral-950 text-stone-50 text-sm px-7 py-3.5
+                          hover:bg-neutral-800 transition-colors duration-200 tracking-wide">
+              View my work <span aria-hidden="true">→</span>
+            </a>
+            <a href="#contact"
+               className="inline-flex items-center gap-2 border border-neutral-300 text-neutral-900 text-sm px-7 py-3.5
+                          hover:border-neutral-900 transition-colors duration-200 tracking-wide">
+              Contact me
+            </a>
+          </div>
+
+        </div>
+      </section>
+    );
+
+    /* WHAT I'M FOCUSED ON */
+    const Focus = () => (
+      <section className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-16">
+            What I'm focused on
+          </p>
+          <div className="grid md:grid-cols-3 gap-12">
+            {FOCUS.map(({ n, title, body }) => (
+              <div key={n}>
+                <p className="text-xs text-neutral-300 mb-5 font-mono tracking-widest">{n}</p>
+                <h3 className="font-display text-[1.25rem] font-medium mb-4 leading-snug">{title}</h3>
+                <p className="text-sm text-neutral-500 leading-[1.8]">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ABOUT */
+    const About = () => (
+      <section id="about" className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-[220px_1fr] gap-16">
+
+          <div className="pt-1">
+            <p className="text-xs tracking-[0.3em] uppercase text-neutral-400">About</p>
+          </div>
+
+          <div className="space-y-5">
+            <p className="text-neutral-700 leading-[1.88] text-[0.97rem]">
+              I'm Vaibhav - a product and data-driven operator with five years at Goldman Sachs, spanning CRM engineering, prime brokerage operations, and cross-functional platform delivery. My background sits at the junction of Computer Engineering, financial services, and human-centred design.
+            </p>
+            <p className="text-neutral-700 leading-[1.88] text-[0.97rem]">
+              Currently exploring AI-native enterprise tools, intelligent automation, and what becomes possible when AI is embedded into how financial services actually operate. I think carefully about where systems break, where they scale, and what it takes to build things that last.
+            </p>
+            <p className="text-neutral-400 leading-[1.88] text-[0.9rem] pt-1">
+              BSc Computer Engineering, University of South Florida. NSF iCORPS Fellow. McKinsey Connected Leaders Academy Champion. USF Presidential Scholar.
+            </p>
+          </div>
+
+        </div>
+      </section>
+    );
+
+    /* EXPERIMENTS & BUILDS */
+    const Experiments = () => (
+      <section id="work" className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-16">
+            Experiments &amp; Builds
+          </p>
+          {/* 1px gap between cards via bg on the grid wrapper */}
+          <div className="grid sm:grid-cols-2 gap-px bg-neutral-200">
+            {EXPERIMENTS.map(({ tag, title, body }) => (
+              <div key={title} className="bg-stone-50 p-9 hover:bg-white transition-colors duration-200">
+                <p className="text-[0.68rem] tracking-[0.22em] uppercase text-neutral-400 mb-5">{tag}</p>
+                <h3 className="font-display text-[1.25rem] font-medium mb-3 leading-snug">{title}</h3>
+                <p className="text-sm text-neutral-500 leading-[1.8]">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* OPERATING PRINCIPLES */
+    const Principles = () => (
+      <section className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-16">
+            Operating Principles
+          </p>
+          <div className="divide-y divide-neutral-200">
+            {PRINCIPLES.map(({ l, name, desc }) => (
+              <div key={name}
+                   className="grid grid-cols-[60px_1fr] md:grid-cols-[80px_220px_1fr] gap-x-6 gap-y-2 py-8 items-start">
+                <span className="font-display text-[3.2rem] text-neutral-200 leading-none select-none">{l}</span>
+                <h3 className="font-display text-xl font-medium pt-1 col-start-2">{name}</h3>
+                <p className="text-sm text-neutral-500 leading-[1.8] col-start-2 md:col-start-3 pt-0 md:pt-1">
+                  {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* CURRENTLY BUILDING */
+    const Building = () => (
+      <section className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-16">
+            Currently Building
+          </p>
+          <div className="bg-neutral-950 text-stone-50 p-12 sm:p-16">
+            <p className="text-[0.68rem] tracking-[0.25em] uppercase text-neutral-500 mb-8">Long-term vision</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-medium mb-8 leading-[1.08] tracking-[-0.02em]">
+              The Pier
+            </h2>
+            <p className="text-neutral-300 text-[0.97rem] leading-[1.88] max-w-[520px] mb-5">
+              A framework for building businesses that last. The Pier is my long-term company-building vision - ventures at the intersection of fintech, B2B technology, and scalable impact.
+            </p>
+            <p className="text-neutral-500 text-sm leading-[1.88] max-w-[520px] mb-12">
+              The name reflects what great companies do: they hold ground, weather pressure, and give others something solid to arrive at. Every build I pursue traces back to this foundation.
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {['Purpose', 'Impact', 'Execution', 'Excellence', 'Resilience'].map(v => (
+                <span key={v}
+                      className="text-[0.65rem] tracking-[0.22em] uppercase border border-neutral-800 text-neutral-500 px-4 py-2">
+                  {v}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* CONTACT */
+    const Contact = () => (
+      <section id="contact" className="py-24 px-6 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-[220px_1fr] gap-16">
+
+          <div className="pt-1">
+            <p className="text-xs tracking-[0.3em] uppercase text-neutral-400">Contact</p>
+          </div>
+
+          <div>
+            <h2 className="font-display text-3xl sm:text-4xl font-medium mb-6 leading-[1.15] tracking-[-0.01em] max-w-md">
+              Have something worth building? Let's talk.
+            </h2>
+            <p className="text-neutral-500 text-sm leading-relaxed mb-10 max-w-sm">
+              Open to conversations about fintech, product strategy, collaboration, and company-building.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="mailto:avaibh09@gmail.com"
+                 className="inline-flex items-center bg-neutral-950 text-stone-50 text-sm px-7 py-3.5
+                            hover:bg-neutral-800 transition-colors duration-200 tracking-wide">
+                avaibh09@gmail.com
+              </a>
+              <a href="https://linkedin.com/in/agarwal-vaibhav"
+                 target="_blank" rel="noopener"
+                 className="inline-flex items-center gap-2 border border-neutral-300 text-neutral-900 text-sm px-7 py-3.5
+                            hover:border-neutral-900 transition-colors duration-200 tracking-wide">
+                LinkedIn <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    );
+
+    /* FOOTER */
+    const Footer = () => (
+      <footer className="border-t border-neutral-200 py-7 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+          <p className="text-xs text-neutral-400">© 2026 Vaibhav Agarwal</p>
+          <p className="text-xs text-neutral-400 tracking-[0.2em] uppercase">London, UK</p>
+        </div>
+      </footer>
+    );
+
+    /* APP */
+    const App = () => (
+      <>
+        <Nav />
+        <Hero />
+        <Focus />
+        <About />
+        <Experiments />
+        <Principles />
+        <Building />
+        <Contact />
+        <Footer />
+      </>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
